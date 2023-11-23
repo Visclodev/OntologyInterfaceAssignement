@@ -35,14 +35,10 @@ This project would be an interface were you can interact with an ontology build 
 
 ## Properties:
 
-- IsSweat
-- IsSour
-- HasChocolate
-- IsHealthy
-- IsSpicy
-
-## Combinations?
-
+- x.IsSweat
+- x.IsSour
+- x.IsHealthy
+- x.IsSpicy
 - x.WorksGreatWith(y)
 - x.ComesFrom(Country)
 - Meal.Contains(Ingredient)
