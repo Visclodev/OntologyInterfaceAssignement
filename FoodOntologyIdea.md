@@ -45,7 +45,7 @@ This project would be an interface were you can interact with an ontology build 
 
 ## Possible applications
 
-Generate new meals?
-Sort meals based on list of ingredients
-List ingredients of a full dish (FirstCourse + MainCourse + Desert)
-Display usefull/creative meals for allergic peoples
+- Generate new meals?
+- Sort meals based on list of ingredients
+- List ingredients of a full dish (FirstCourse + MainCourse + Desert)
+- Display usefull/creative meals for allergic peoples
