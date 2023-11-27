@@ -4,6 +4,7 @@ function Ontology() {
     return (
       <div>
         <h>Ontology</h>
+
         
       </div>
     );
