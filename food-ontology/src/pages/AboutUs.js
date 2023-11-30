@@ -4,7 +4,7 @@ import "../stylesheet/Aboutus.css";
 import picture1 from "../index/ontood-logo.jpg"
 import picture2 from "../index/ontood-logo.jpg"
 import picture3 from "../index/ontood-logo.jpg"
-
+import picture4 from "../index/ontood-logo.jpg"
 
 function AboutUs() {
     return (
@@ -27,11 +27,16 @@ function AboutUs() {
             src={picture3}
             alt="picture3"
             style={{width: 200, height: 200, borderRadius: 200/ 2, marginLeft: "15%"}} />
+            <img
+            src={picture4}
+            alt="picture4"
+            style={{width: 200, height: 200, borderRadius: 200/ 2, marginLeft: "15%"}} />
        </div>
        <div style={{marginTop: "1%"}}>
           <h> Chloé Lere </h>
           <h style={{marginLeft: "21%"}}> Gyzem Yilmaz </h>
-          <h style={{marginLeft: "21%"}}> Clovis Schneider </h>  
+          <h style={{marginLeft: "21%"}}> Clovis Schneider </h> 
+          <h style={{marginLeft: "21%"}}> New name </h>
        </div>
        <div style={{marginTop: "5%", marginLeft: "10%", marginRight: "10%"}}>  
           <p>
