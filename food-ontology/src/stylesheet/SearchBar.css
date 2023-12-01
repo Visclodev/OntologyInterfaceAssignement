@@ -14,8 +14,17 @@ h1 {
 
 .search {
     width: 30%;
+    margin-bottom: 0.5%;
 }
 
 ul li {
     font-size: 20px;
 } 
+
+
+.ingredient {
+    background-color: #b50d57;
+    color : white;
+    padding: 0.2% 0.2% 0.2% 1%;
+    margin-right: 2%;
+}

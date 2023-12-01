@@ -1,6 +1,8 @@
 import { React, useState } from "react";
 import TextField from "@mui/material/TextField";
 import "../stylesheet/SearchBar.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 
 function SearchBar() {
 
@@ -12,12 +14,22 @@ function SearchBar() {
         setIngredients([...ingredients, e.target.value]);
         e.target.value = "";
       }
-      console.log(ingredients);
     }
+  }
+
+  let removeIngredient = (key) => {
+    let array = ingredients;
+    if (key > -1) { 
+      array.splice(key, 1);
+    }
+    setIngredients(array);
+    console.log(ingredients);
+    
   }
 
   return (
     <div>
+      
       <div className="main">
         <div className="search">
           <TextField
@@ -31,8 +43,11 @@ function SearchBar() {
         </div>
       </div>
       <div>
-        {ingredients && ingredients.map((item) => (
-          <p> {item} </p>
+        {ingredients?.map((item, key) => (
+          <h className="ingredient" id={key}> 
+              {item}
+              <FontAwesomeIcon icon={faCircleXmark} style={{marginLeft: "0.6%"}} onClick={() => removeIngredient(key)}/>
+          </h>
         ))}
       </div>
     </div>
