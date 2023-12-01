@@ -9,12 +9,10 @@ function SearchBar() {
   let handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       if (e.target.value.length > 0) {
-        if (ingredients.length == 0)
-          setIngredients(e.target.value);
-        else
-          setIngredients([...ingredients, e.target.value]);
+        setIngredients([...ingredients, e.target.value]);
         e.target.value = "";
       }
+      console.log(ingredients);
     }
   }
 
@@ -32,9 +30,11 @@ function SearchBar() {
           />
         </div>
       </div>
-      {/*(ingredients && (ingredients.length !== 0)) && ingredients.map((item) => (
-        <p> {item} </p>
-      ))*/}
+      <div>
+        {ingredients && ingredients.map((item) => (
+          <p> {item} </p>
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import ontoodLogo from "../index/bandeau-ontood.jpg"
 import "../stylesheet/Aboutus.css";
-import picture1 from "../index/ontood-logo.jpg"
-import picture2 from "../index/ontood-logo.jpg"
+import picture1 from "../index/picture1.jpg"
+import picture2 from "../index/picture2.png"
 import picture3 from "../index/ontood-logo.jpg"
 import picture4 from "../index/ontood-logo.jpg"
 
@@ -36,7 +36,7 @@ function AboutUs() {
           <h> Chloé Lere </h>
           <h style={{marginLeft: "21%"}}> Gyzem Yilmaz </h>
           <h style={{marginLeft: "21%"}}> Clovis Schneider </h> 
-          <h style={{marginLeft: "21%"}}> New name </h>
+          <h style={{marginLeft: "20%"}}> Alijona Samuelsson </h>
        </div>
        <div style={{marginTop: "5%", marginLeft: "10%", marginRight: "10%"}}>  
           <p>

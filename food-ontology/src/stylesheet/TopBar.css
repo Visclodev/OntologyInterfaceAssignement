@@ -81,67 +81,7 @@ div>a{
     transform: scaleX(.9);
     transform-origin: bottom left;
   }
-.vl{
-  margin-top: 2vh;
-  border-left: 1px solid #d3cfcf;
-  position: absolute;
-  margin-left:50vw;
-  height: 250px;
-}
-.vlt{
-  margin-left:51vw;
-  margin-top: 25vh;
-}
-.CardsContainer{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-}
 
-.Intermediate_Area{
-  background-color: #fafafa;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 10%;
-  margin-bottom: 20vh;
-}
-.Intermediate_Area_Part2{
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-.Intermediate_Area_Part1{
-  font-size: 3rem;
-  font-weight: lighter;
-  opacity: .8;
-  font-family: 'Anton', sans-serif;
-}
-
-.Footer_1{
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  padding: 8%;
-}
-.Footer_1_1{
-  font-size: 2.2rem;
-  font-weight: lighter;
-  opacity: .7;
-  font-family: 'Anton', sans-serif;
-}
-
-.Footer_2{
-  /* background-color: #fafafa; */
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 5% 10% 0% 10%;
-  /* margin-bottom: 20vh; */
-  /* color: ; */
-}
 li{
   list-style-type: none;
   margin-right: 2vw;
@@ -153,9 +93,6 @@ li{
 ul li{
   margin-bottom: 1vh;
   text-align: center;
-}
-.Footer_3{
-  padding: 0% 8% 5% 8%;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -173,37 +110,4 @@ ul li{
   display: flex;
   flex-wrap: wrap;
 }
-}
-
-@media only screen and (max-width: 800px) {
-  .CardsContainer{
-    flex-direction: column;
-    margin-left: 2vw;
-    margin-right: 2vw;
-    align-items: center;
-    justify-content: center;
-  }
-  .Footer_1_Names{
-    flex-direction: column;
-  }
-}
-@media only screen and (max-width: 500px) {
-  .CardsContainer{
-    flex-direction: column;
-    margin-left: 5vw;
-
-    align-items: center;
-    justify-content: center;
-  }
-  .hide_on_responsive{
-    display: none;
-  }
-}
-@media only screen and (max-width: 400px) {
-  .CardsContainer{
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-  }
 }
