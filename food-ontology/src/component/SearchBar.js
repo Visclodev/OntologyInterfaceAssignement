@@ -18,13 +18,11 @@ function SearchBar() {
   }
 
   let removeIngredient = (key) => {
-    let array = ingredients;
+    let array = [...ingredients];
     if (key > -1) { 
       array.splice(key, 1);
     }
     setIngredients(array);
-    console.log(ingredients);
-    
   }
 
   return (
