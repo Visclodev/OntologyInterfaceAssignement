@@ -1,0 +1,229 @@
+@base <http://www.dishfinder.org/> .
+@prefix : <http://www.dishfinder.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+
+# Classes
+:Dish a rdfs:Class ;
+    rdfs:subClassOf dbo:Food .
+
+:Ingredient a rdfs:Class ;
+    rdfs:subClassOf dbo:Food .
+
+:Country a rdfs:Class ;
+    rdfs:subClassOf dbo:Place .
+
+:Taste a rdfs:Class .
+
+:CourseType a rdfs:Class .
+
+:Cuisine a rdfs:Class .
+
+# User-related Classes
+:User a rdfs:Class .
+
+:VegetarianUser a :User ;
+    rdf:type owl:NamedIndividual .
+
+:PescatarianUser a :User ;
+    rdf:type owl:NamedIndividual .
+
+:VeganUser a :User ;
+    rdf:type owl:NamedIndividual .
+
+:GeneralUser a :User ;
+    rdf:type owl:NamedIndividual .
+
+# Recipe-related Classes
+:Recipe a rdfs:Class .
+
+# Allergy-related Classes
+:Allergy a rdfs:Class .
+
+# Nutritional Information Class
+:NutritionalInformation a rdfs:Class .
+
+# Season Class
+:Season a rdfs:Class .
+
+# Occasion Class
+:Occasion a rdfs:Class .
+
+# Food Pairing Classes
+:FoodPairing a rdfs:Class .
+:IngredientPairing a :FoodPairing .
+:DishPairing a :FoodPairing .
+
+# Properties
+:hasIngredient a rdf:Property ;
+    rdfs:domain :Dish ;
+    rdfs:range :Ingredient .
+
+:hasOrigin a rdf:Property ;
+    rdfs:domain :Dish ;
+    rdfs:range :Country .
+
+:hasTaste a rdf:Property ;
+    rdfs:domain :Dish ;
+    rdfs:range :Taste .
+
+:hasCourseType a rdf:Property ;
+    rdfs:domain :Dish ;
+    rdfs:range :CourseType .
+
+:hasWikiPage a rdf:Property ;
+    rdfs:domain :Dish ;
+    rdfs:range xsd:anyURI .
+
+:hasCuisine a rdf:Property ;
+    rdfs:domain :Dish ;
+    rdfs:range :Cuisine .
+
+:hasMainIngredient a rdf:Property ;
+    rdfs:domain :Dish ;
+    rdfs:range :Ingredient .
+
+:hasSimilarDish a rdf:Property ;
+    rdfs:domain :Dish ;
+    rdfs:range :Dish .
+
+# User-related Properties
+:hasAvailableIngredient a rdf:Property ;
+    rdfs:domain :User ;
+    rdfs:range :Ingredient .
+
+:hasPreference a rdf:Property ;
+    rdfs:domain :User ;
+    rdfs:range :Taste .
+
+:hasDietaryPreference a rdf:Property ;
+    rdfs:domain :User ;
+    rdfs:range :Cuisine .
+
+:hasRecipe a rdf:Property ;
+    rdfs:domain :Dish ;
+    rdfs:range :Recipe .
+
+:hasAllergy a rdf:Property ;
+    rdfs:domain :User ;
+    rdfs:range :Allergy .
+
+:hasCookingTime a rdf:Property ;
+    rdfs:domain :Dish ;
+    rdfs:range xsd:string .
+
+# New Properties
+:hasDifficultyLevel a rdf:Property ;
+    rdfs:domain :Dish ;
+    rdfs:range xsd:string .
+
+:hasPreparationMethod a rdf:Property ;
+    rdfs:domain :Dish ;
+    rdfs:range xsd:string .
+
+:hasPriceRange a rdf:Property ;
+    rdfs:domain :Ingredient ;
+    rdfs:range xsd:string .
+
+:hasNutritionalInformation a rdf:Property ;
+    rdfs:domain :Dish ;
+    rdfs:range :NutritionalInformation .
+
+:hasSeason a rdf:Property ;
+    rdfs:domain :Ingredient ;
+    rdfs:range :Season .
+
+:hasOccasion a rdf:Property ;
+    rdfs:domain :Dish ;
+    rdfs:range :Occasion .
+
+# Food Pairing Properties
+:complements a rdf:Property ;
+    rdfs:domain :FoodPairing ;
+    rdfs:range :FoodPairing .
+
+:pairingReason a rdf:Property ;
+    rdfs:domain :FoodPairing ;
+    rdfs:range xsd:string .
+
+:complementsIngredient a rdf:Property ;
+    rdfs:domain :IngredientPairing ;
+    rdfs:range :Ingredient .
+
+:complementsDish a rdf:Property ;
+    rdfs:domain :DishPairing ;
+    rdfs:range :Dish .
+
+:hasPairing a rdf:Property ;
+    rdfs:domain [ a owl:Class ;
+                  owl:unionOf (:Dish :Ingredient) ] ;
+    rdfs:range :FoodPairing .
+
+# Linked Properties
+:hasSimilarCuisine a rdf:Property ;
+    rdfs:domain :Cuisine ;
+    rdfs:range :Cuisine .
+
+# Individuals
+:Sweet a :Taste .
+:Sour a :Taste .
+:Bitter a :Taste .
+:Salty a :Taste .
+:Umami a :Taste .
+
+:Appetizer a :CourseType .
+:MainCourse a :CourseType .
+:Dessert a :CourseType .
+
+:ItalianCuisine a :Cuisine .
+:FrenchCuisine a :Cuisine .
+:ChineseCuisine a :Cuisine .
+
+:Spring a :Season ;
+    rdfs:label "Spring" .
+
+:Summer a :Season ;
+    rdfs:label "Summer" .
+
+:Fall a :Season ;
+    rdfs:label "Fall" .
+
+:Winter a :Season ;
+    rdfs:label "Winter" .
+
+:CasualOccasion a :Occasion ;
+    rdfs:label "Casual" .
+
+:FormalOccasion a :Occasion ;
+    rdfs:label "Formal" .
+
+# Examples of Food Pairings
+:RedWine a :IngredientPairing ;
+    :complementsIngredient :Steak ;
+    :pairingReason "Red wine complements steak due to its robust flavor and ability to enhance the taste of red meat." .
+
+:GarlicBread a :DishPairing ;
+    :complementsDish :Pasta ;
+    :pairingReason "Garlic bread pairs well with pasta as its crispy texture and buttery garlic flavor complement the pasta's rich sauce." .
+
+# Linking Pairings to Dishes and Ingredients
+:Steak :hasPairing :RedWine .
+:Pasta :hasPairing :GarlicBread .
+
+# Linking specific tastes to cuisines
+:ItalianCuisine :hasTaste :Umami, :Bitter, :Salty .
+:FrenchCuisine :hasTaste :Sweet, :Sour, :Bitter .
+:ChineseCuisine :hasTaste :Sweet, :Sour, :Salty, :Umami .
+
+# Individual instances of Dish
+:Pizza rdf:type :Dish .
+:Spaghetti rdf:type :Dish .
+
+# Individual instances of Ingredient
+:Tomato rdf:type :Ingredient .
+
+# Linking Ingredients to Dishes
+:Pizza :hasIngredient :Tomato .

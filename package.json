@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "rdf-parse": "^2.3.2"
+  }
+}
