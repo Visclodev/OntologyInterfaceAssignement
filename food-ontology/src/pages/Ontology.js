@@ -14,7 +14,7 @@ function Ontology() {
           <SelectOption label="test2"></SelectOption>
           <SelectOption label="fruit"></SelectOption>
           <SearchBar ingredients={ingredients} setIngredients={setIngredients}></SearchBar>
-          {/*<Answer blabla="my car keys"></Answer>*/ console.log(ingredients)}
+          {/*<Answer blabla="my car keys"></Answer>*/ }
         </div>
         <div>
         </div>
