@@ -5,27 +5,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 
 
-// QUERY : need a queery that take a list of ingredient and find the recipies
-
-function SearchBar() {
-
-  const [ingredients, setIngredients] = useState([]);
+function SearchBar(props) {
 
   let handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       if (e.target.value.length > 0) {
-        setIngredients([...ingredients, e.target.value]);
+        props.setIngredients([...props.ingredients, e.target.value]);
         e.target.value = "";
       }
     }
   }
 
   let removeIngredient = (key) => {
-    let array = [...ingredients];
+    let array = [...props.ingredients];
     if (key > -1) { 
       array.splice(key, 1);
     }
-    setIngredients(array);
+    props.setIngredients(array);
   }
 
   return (
@@ -44,7 +40,7 @@ function SearchBar() {
         </div>
       </div>
       <div>
-        {ingredients?.map((item, key) => (
+        {props.ingredients?.map((item, key) => (
           <h className="ingredient" id={key}> 
               {item}
               <FontAwesomeIcon icon={faCircleXmark} style={{marginLeft: "0.6%"}} onClick={() => removeIngredient(key)}/>
