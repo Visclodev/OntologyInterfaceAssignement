@@ -1,1 +1,2 @@
-food-ontology/nodes_modules
+node_modules/
+venv/
