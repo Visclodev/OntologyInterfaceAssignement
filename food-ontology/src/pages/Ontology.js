@@ -7,9 +7,11 @@ function Ontology() {
     return (
       <div>
         <div style={{marginTop: "2%"}}>
-          <SelectOption></SelectOption>
-          <Answer blabla="my car keys"></Answer>
+          <SelectOption label="Country"></SelectOption>
+          <SelectOption label="test2"></SelectOption>
+          <SelectOption label="fruit"></SelectOption>
           <SearchBar></SearchBar>
+          {/*<Answer blabla="my car keys"></Answer>*/}
         </div>
         <div>
         </div>

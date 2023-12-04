@@ -4,6 +4,9 @@ import "../stylesheet/SearchBar.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 
+
+// QUERY : need a queery that take a list of ingredient and find the recipies
+
 function SearchBar() {
 
   const [ingredients, setIngredients] = useState([]);
