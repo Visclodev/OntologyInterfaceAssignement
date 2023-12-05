@@ -36,7 +36,7 @@ function processResults(data) {
         let conceptValue = result.Concept.value;
 
         // Outputting the retrieved information
-        console.log(`the concept ${conceptValue} is of type ${conceptValue}`);
+        console.log(`the concept ${conceptValue} is of type ${conceptType}`);
     });
 }
 
