@@ -5,15 +5,15 @@ import "../stylesheet/Select.css"
 
   
 function SelectOption(props) {
-
+      
     let handleChange = (e) => {
-        console.log(e);
+        props.onOptionChange(props.label, e);
     }
 
     return(
         <div className='select'>
             <FormControl fullWidth>
-                <Select options={props.options} onChange={handleChange} placeholder={props.label} isSearchable isMulti/>
+                <Select options={props.optionsList} onChange={handleChange} placeholder={props.label} isSearchable isMulti value={props.optionsChoose}/>
             </FormControl>
         </div>
     );
