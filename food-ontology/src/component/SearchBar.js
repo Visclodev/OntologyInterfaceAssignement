@@ -25,7 +25,7 @@ function SearchBar(props) {
   }
 
   return (
-    <div>
+    <div style={{marginTop: 130}}>
       
       <div className="main">
         <div className="search">
@@ -43,7 +43,7 @@ function SearchBar(props) {
         {props.ingredients?.map((item, key) => (
           <h className="ingredient" id={key}> 
               {item}
-              <FontAwesomeIcon icon={faCircleXmark} style={{marginLeft: "0.6%"}} onClick={() => removeIngredient(key)}/>
+              <FontAwesomeIcon icon={faCircleXmark} className="remove-icon" onClick={() => removeIngredient(key)}/>
           </h>
         ))}
       </div>

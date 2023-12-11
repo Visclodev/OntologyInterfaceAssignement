@@ -24,7 +24,20 @@ ul li {
 
 .ingredient {
     background-color: #b50d57;
-    color : white;
     padding: 0.2% 0.2% 0.2% 1%;
     margin-right: 2%;
+    transition: background-color 0.3s ease;
+    color: white;
+    
 }
+
+.ingredient .remove-icon {
+
+  color: #f9f2fb;
+  margin-left: 0.6%;
+}
+  
+.ingredient .remove-icon:hover {
+  color: #dbc8e0;
+}
+  

@@ -53,8 +53,6 @@ function Ontology() {
           {/*<Answer blabla="my car keys"></Answer>*/ }
           
         </div>
-        <div>
-        </div>
       </div>
     );
 }
