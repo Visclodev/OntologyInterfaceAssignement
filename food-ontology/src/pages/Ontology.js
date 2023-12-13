@@ -56,6 +56,9 @@ function Ontology() {
     
     useEffect(() => {
       setTotal(ingredients.length + options.reduce((total, option) => total + option.optionsChoose.length, 0));
+      if (total >= 3) {
+        //call function who do the query here
+      }
     })
 
 
