@@ -1,7 +1,8 @@
 import SearchBar from '../component/SearchBar';
 import SelectOption from '../component/SelectOption';
 import Answer from '../component/Answer';
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
+import "../stylesheet/Ontology.css"
 
 //example of what I imagine the data should look like :
 const option = [{ 
@@ -30,10 +31,20 @@ const option = [{
   optionsChoose: [],
 }];
 
+//exemple of potential result
+const result = [{
+  name: "cake",
+},
+{
+  name: "pizza",
+}];
+
 function Ontology() {
 
     const [ingredients, setIngredients] = useState([]); //list of the ingredients needed for the query
-    const [options, setOptions] = useState(option); 
+    const [options, setOptions] = useState(option); //change "option" to [] when the query will be done
+    const [results, setResult] = useState(result) //change "result" to [] when the query will be done
+    const [total, setTotal] = useState(0);
 
     const handleOptionChange = (label, selectedOptions) => {
       setOptions((prevOptions) =>
@@ -42,6 +53,11 @@ function Ontology() {
         )
       );
     };
+    
+    useEffect(() => {
+      setTotal(ingredients.length + options.reduce((total, option) => total + option.optionsChoose.length, 0));
+    })
+
 
     return (
       <div>
@@ -50,7 +66,19 @@ function Ontology() {
             <SelectOption label={option.label} optionsList={option.optionsList} optionsChoose={option.optionsChoose} onOptionChange={handleOptionChange} optionsData={options}></SelectOption>
           ))}
           <SearchBar ingredients={ingredients} setIngredients={setIngredients}></SearchBar>
+          {
+            total >= 3 ? 
+            <div> 
+              <hr class="solid"></hr>
+              {results?.map((recipe) => (
+                <p>{recipe.name}</p>
+              ))}
+            </div>
+            :
+            <h className='error-message'>Please add more filter element</h>
+          }
           {/*<Answer blabla="my car keys"></Answer>*/ }
+
           
         </div>
       </div>

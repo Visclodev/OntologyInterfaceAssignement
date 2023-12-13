@@ -1,0 +1,17 @@
+hr.solid {
+    border-top: 3px solid #f9f2fb;
+    margin-left: 8%;
+    margin-right: 8%;
+    margin-top: 5%;
+    margin-bottom: 2%;
+    color: #ebebf8;
+}
+
+.error-message {
+    color: #b50d57;
+    background-color: #fcf4ff;
+    padding: 1% 1% 1% 1%;
+    display: inline-block;
+    margin-top: 2%;
+    border: solid 0.5px #b50d57;
+}
