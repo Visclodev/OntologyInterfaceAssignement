@@ -1,5 +1,6 @@
 import SearchBar from '../component/SearchBar';
 import SelectOption from '../component/SelectOption';
+import Recipe from '../component/Recipe';
 import Answer from '../component/Answer';
 import { React, useState, useEffect } from "react";
 import "../stylesheet/Ontology.css"
@@ -54,10 +55,7 @@ function Ontology() {
             <div> 
               <hr class="solid"></hr>
               {results?.map((recipe) => (
-                <div>
-                  <h3>{recipe.name}</h3>
-                  <p>{recipe.instructions}</p>
-                </div>
+                  <Recipe recipe={recipe}></Recipe>
               ))}
             </div>
             :
