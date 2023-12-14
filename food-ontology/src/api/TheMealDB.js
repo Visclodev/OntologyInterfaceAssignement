@@ -1,8 +1,6 @@
 // This is filled by fetchIngredients() this could be used for the searchbar
 let availableIngredients = []
 
-let results = []
-
 //example of what I imagine the data should look like :
 let option = [{ 
   label: "country",
@@ -118,9 +116,6 @@ function fetchMealWithIngredient(ingredient) {
   });
 }
 
-function getResults() {
-  return(results);
-}
 
 module.exports = {
     fetchCategories,
@@ -129,6 +124,5 @@ module.exports = {
     fetchRandomMeal,
     fetchMealWithIngredient,
     getOption,
-    getResults,
   };
   

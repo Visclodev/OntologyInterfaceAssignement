@@ -47,9 +47,21 @@ function AboutUs() {
      
        <div style={{marginTop: "5%", marginLeft: "10%", marginRight: "10%"}}>  
           <p>
-            In the project we will work in groups. After the project we will gain more practical experience with knowledge representation, ontology and the Semantic Web technologies and knowledge graphs, and also should get a good understanding of the possibilities and limitations of these technologies in certain types of applications.
-            We should build a meaningful application using technologies, such as ontologies, semantic web technologies, and using linked data or knowledge graphs. 
+            Our project, ONTOOD, serves as a practical exploration of knowledge representation and the semantic web technologies concepts through the lens of culinary arts. We have developed a food ontology-based platform that not only enriches our understanding of these technologies but also offers practical solutions to everyday challenges in the kitchen. This initiative aims to create a user-friendly web interface that simplifies the process of discovering, selecting, and cooking dishes based on specific preferences and constraints.
           </p>
+          <p>
+            Our web interface allows for the application of various constraints—from ingredients and origin to taste profiles and cooking times. This hands-on approach enables us to interact with knowledge graphs and utilize JSON to answer complex questions, such as "How can we cook meals with multiple restrictions?"
+          </p>
+          <p>
+            The project's use cases are reducing food waste, discovering new dishes, and cooking personalized meals which are not just theoretical exercises; they are real-world applications that demonstrate the power of semantic web technologies in addressing global issues like food sustainability.
+          </p>
+          <p>
+            In developing our platform, we have employed React to create a responsive web interface, Protégé to construct our ontology, and JSON for data querying. 
+          </p>
+          <p>
+            Beyond a traditional recipe repository, our project seeks to empower users in engaging with food on a more meaningful level, bridging cultural diversity, individual tastes, and sustainable cooking practices.
+          </p>
+          
        </div>
       </div>
     );
