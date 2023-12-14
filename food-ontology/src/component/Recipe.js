@@ -1,8 +1,9 @@
-import { React, useState, useEffect } from "react";
+import { React } from "react";
+import "../stylesheet/Recipe.css"
 
 function Recipe(props) {
     return (
-        <div>
+        <div className="recipe">
             <h3>{props.recipe.name}</h3>
             <p>{props.recipe.instructions}</p>
         </div>

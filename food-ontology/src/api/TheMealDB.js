@@ -1,6 +1,8 @@
 // This is filled by fetchIngredients() this could be used for the searchbar
 let availableIngredients = []
 
+let results = []
+
 //example of what I imagine the data should look like :
 let option = [{ 
   label: "country",
@@ -97,22 +99,27 @@ function fetchRandomMeal(results) {
     }).catch(reason => console.log(reason));
 }
   
-function fetchMealWithIngredient(results, ingredient) {
+function fetchMealWithIngredient(ingredient) {
+  return new Promise((resolve, reject) => {
+
     fetch("https://www.themealdb.com/api/json/v1/1/filter.php?i=" + ingredient)
     .then(res => {
       console.log(res)
       return res.json()
     })
-    .then(res => {
-      res.meals.forEach(meal => {
-        results.push({
-          name: meal.strMeal,
-          instructions: meal.strInstructions
-        })
-        console.log("results");
-        console.log(results);
-      })
+    .then(res => { //Be careful when the ingredients don’t exist it breaks everything
+      const recipe = res.meals.map(meal => ({
+        name: meal.strMeal,
+        instructions: meal.strInstructions
+      }));
+      resolve(recipe);
+
     }).catch(reason => console.log(reason));
+  });
+}
+
+function getResults() {
+  return(results);
 }
 
 module.exports = {
@@ -122,5 +129,6 @@ module.exports = {
     fetchRandomMeal,
     fetchMealWithIngredient,
     getOption,
+    getResults,
   };
   

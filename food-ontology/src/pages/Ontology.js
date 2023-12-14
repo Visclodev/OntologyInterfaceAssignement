@@ -1,10 +1,9 @@
 import SearchBar from '../component/SearchBar';
 import SelectOption from '../component/SelectOption';
 import Recipe from '../component/Recipe';
-import Answer from '../component/Answer';
 import { React, useState, useEffect } from "react";
 import "../stylesheet/Ontology.css"
-import {fetchCategories, fetchArea, fetchIngredients, fetchRandomMeal, fetchMealWithIngredient, getOption} from "../api/TheMealDB"
+import {fetchCategories, fetchArea, fetchIngredients, fetchRandomMeal, fetchMealWithIngredient, getOption, getResults} from "../api/TheMealDB"
 
 //exemple of potential result
 let result = [{
@@ -23,7 +22,7 @@ function Ontology() {
     useEffect(fetchIngredients);
     const [ingredients, setIngredients] = useState([]); //list of the ingredients needed for the query
     const [options, setOptions] = useState(getOption()); //change "option" to [] when the query will be done
-    const [results, setResults] = useState(result) //change "result" to [] when the query will be done
+    const [results, setResults] = useState([]) //change "result" to [] when the query will be done
     const [total, setTotal] = useState(0);
 
     const handleOptionChange = (label, selectedOptions) => {
@@ -37,9 +36,13 @@ function Ontology() {
     useEffect(() => {
       setTotal(ingredients.length + options.reduce((total, option) => total + option.optionsChoose.length, 0));
       if (total >= 3) {
-        ingredients.forEach(ingredient => {
-          //setResults(fetchMealWithIngredient(results, ingredient));//to fix: undefined + pb return
-        });
+
+        Promise.all(ingredients.map(ingredient => fetchMealWithIngredient(ingredient)))
+            .then(resultsArray => {
+                setResults(resultsArray.flat());
+            })
+            .catch(error => console.error(error));
+
       }
     })
 
@@ -61,7 +64,6 @@ function Ontology() {
             :
             <h className='error-message'>Please add more filter element</h>
           }
-          {/*<Answer blabla="my car keys"></Answer>*/ }
           
         </div>
       </div>
