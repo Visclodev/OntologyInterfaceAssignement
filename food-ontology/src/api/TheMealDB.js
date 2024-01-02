@@ -9,6 +9,11 @@ let option = [{
 
 },
 {
+  label: "meal categories",
+  optionsList: [],
+  optionsChoose: []
+},
+{
   label: "food restriction",
   optionsList: [
     { value: 'Gluten-free', label: 'Gluten-free' },
@@ -22,11 +27,6 @@ let option = [{
     { value: 'Low carb', label: 'Low carb' }
   ],
   optionsChoose: [],
-},
-{
-  label: "meal categories",
-  optionsList: [],
-  optionsChoose: []
 }];
   
 function getOption() {
@@ -41,7 +41,7 @@ function fetchCategories() {
       })
     .then(response => {
       response.meals.forEach(meal => {
-        option[2].optionsList.push({
+        option[1].optionsList.push({
           value: meal.strCategory,
           label: meal.strCategory
         })
@@ -67,7 +67,7 @@ function fetchArea() {
     })
     .catch(reason => console.log(reason));
 }
-  
+
 function fetchIngredients() {
     fetch("https://www.themealdb.com/api/json/v1/1/list.php?i=list")
     .then(response => {
@@ -96,33 +96,83 @@ function fetchRandomMeal(results) {
       })
     }).catch(reason => console.log(reason));
 }
-  
-function fetchMealWithIngredient(ingredient) {
-  return new Promise((resolve, reject) => {
 
-    fetch("https://www.themealdb.com/api/json/v1/1/filter.php?i=" + ingredient)
-    .then(res => {
-      console.log(res)
-      return res.json()
-    })
-    .then(res => { //Be careful when the ingredients don’t exist it breaks everything
-      const recipe = res.meals.map(meal => ({
-        name: meal.strMeal,
-        instructions: meal.strInstructions
-      }));
-      resolve(recipe);
-
-    }).catch(reason => console.log(reason));
-  });
+async function fetchMealsByIngredient(ingredient) {
+  const req = "https://www.themealdb.com/api/json/v1/1/filter.php?i=" + ingredient
+  const response = await fetch(req)
+  const meals = await response.json();
+  return meals.meals
 }
 
+async function fetchMealsByArea(area, results) {
+  fetch("https://www.themealdb.com/api/json/v1/1/filter.php?a=" + area)
+  .then(res => res.json())
+  .then(res => {
+    results.push({
+      name: res.meals[0].strMeal,
+      id: res.meals[0].idMeal
+    })
+  }).catch(reason => console.log(reason));
+}
+
+async function fetchMealsByCategory(category, results) {
+  fetch("https://ww.themealdb.com/api/json/v1/1/filter.php?a=" + category)
+  .then(res => res.json())
+  .then(res => {
+    results.push({
+      name: res.meals[0].strMeal,
+      id: res.meals[0].idMeal
+    })
+  }).catch(reason => console.log(reason));
+}
+
+function compareMeals(a, b) {
+  if (a.idMeal < b.idMeal) {
+    return -1
+  } else if (a.idMeal > b.idMeal) {
+    return 1
+  }
+  return 0
+}
+
+function cleanResults(r) {
+  r.sort(compareMeals);
+  console.log(r);
+  for (let i = r.length - 1; i > 0; i--) {
+    if (r[i].idMeal === r[i - 1].idMeal) {
+      r.splice(i, 1);
+    }
+  }
+  return r;
+}
+
+async function fetchMeals(ingredients, areas, categories) {
+  let result = [];
+  ingredients.forEach(element => {
+    fetchMealsByIngredient(element).then(res => result.concat(result));
+  });
+  /*
+  areas.forEach(element => {
+    fetchMealsByArea(element).then(res => result.concat(res));
+  })
+  categories.forEach(element => {
+    fetchMealsByCategory(element).then(res => result.concat(res));
+  })
+  */
+  cleanResults(result);
+  return result;
+}
 
 module.exports = {
     fetchCategories,
     fetchArea,
     fetchIngredients,
     fetchRandomMeal,
-    fetchMealWithIngredient,
     getOption,
+    fetchMealsByIngredient,
+    fetchMealsByArea,
+    fetchMealsByCategory,
+    cleanResults,
+    fetchMeals
   };
   

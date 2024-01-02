@@ -1,29 +1,21 @@
 import SearchBar from '../component/SearchBar';
 import SelectOption from '../component/SelectOption';
-import Recipe from '../component/Recipe';
+import Meal from '../component/Meal';
 import { React, useState, useEffect } from "react";
 import "../stylesheet/Ontology.css"
 import {fetchCategories, fetchArea, fetchIngredients, fetchRandomMeal, fetchMealWithIngredient, getOption, getResults} from "../api/TheMealDB"
-
-//exemple of potential result
-let result = [{
-  name: "cake",
-  instructions: "bake the cake"
-},
-{
-  name: "pizza",
-  instructions: "add cheese"
-}];
+import * as MealDB from "../api/TheMealDB"
 
 
 function Ontology() {
-    useEffect(fetchCategories);
-    useEffect(fetchArea);
-    useEffect(fetchIngredients);
+    //useEffect(fetchCategories);
+    //useEffect(fetchArea);
+    //useEffect(fetchIngredients);
     const [ingredients, setIngredients] = useState([]); //list of the ingredients needed for the query
     const [options, setOptions] = useState(getOption()); //change "option" to [] when the query will be done
     const [results, setResults] = useState([]) //change "result" to [] when the query will be done
     const [total, setTotal] = useState(0);
+    const [functionCalled, setFunctionCalled] = useState(false);
 
     const handleOptionChange = (label, selectedOptions) => {
       setOptions((prevOptions) =>
@@ -34,17 +26,27 @@ function Ontology() {
     };
     
     useEffect(() => {
+      /*
       setTotal(ingredients.length + options.reduce((total, option) => total + option.optionsChoose.length, 0));
-      if (total >= 3) {
-
-        Promise.all(ingredients.map(ingredient => fetchMealWithIngredient(ingredient)))
-            .then(resultsArray => {
-                setResults(resultsArray.flat());
-            })
-            .catch(error => console.error(error));
-
-      }
+      if (total >= 3 && !functionCalled) {
+        ingredients.forEach(element => {
+          MealDB.fetchMealsByIngredient(element).then((res) => {
+            setResults(results.concat(res));
+          })
+        })
+        setFunctionCalled(true);
+      }*/
     })
+
+    const searchButton = async () => {
+      setTotal(ingredients.length + options.reduce((total, option) => total + option.optionsChoose.length, 0));
+      const promises = ingredients.map(ingredient => MealDB.fetchMealsByIngredient(ingredient));
+      const responses = await Promise.all(promises);
+      let result = [].concat(...responses)
+      console.log(result);
+      MealDB.cleanResults(result);
+      setResults(result);
+    }
 
     return (
       <div>
@@ -53,12 +55,13 @@ function Ontology() {
             <SelectOption label={option.label} optionsList={option.optionsList} optionsChoose={option.optionsChoose} onOptionChange={handleOptionChange} optionsData={options}></SelectOption>
           ))}
           <SearchBar ingredients={ingredients} setIngredients={setIngredients}></SearchBar>
+          <button onClick={searchButton}>search</button>
           {
             total >= 3 ? 
             <div> 
               <hr class="solid"></hr>
-              {results?.map((recipe) => (
-                  <Recipe recipe={recipe}></Recipe>
+              {results?.map((meal) => (
+                  <Meal meal={meal}></Meal>
               ))}
             </div>
             :
