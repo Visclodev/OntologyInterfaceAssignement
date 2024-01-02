@@ -34,6 +34,8 @@ function getOption() {
 }
 
 function fetchCategories() {
+  if (option[1].optionsList.length != 0)
+    return;
     fetch("https://www.themealdb.com/api/json/v1/1/list.php?c=list")
     .then(response => {
         console.log(response)
@@ -51,21 +53,23 @@ function fetchCategories() {
 }
   
 function fetchArea() {
-    fetch("https://www.themealdb.com/api/json/v1/1/list.php?a=list")
-    .then(response => {
-        console.log(response)
-        return response.json()
-      })
-    .then(response => {
-      response.meals.forEach(meal => {
-        option[0].optionsList.push({
-          value: meal.strArea,
-          label: meal.strArea
-        })
-      })
-      console.log(option[0].optionsList)
+  if (option[0].optionsList.length != 0)
+    return;
+  fetch("https://www.themealdb.com/api/json/v1/1/list.php?a=list")
+  .then(response => {
+      console.log(response)
+      return response.json()
     })
-    .catch(reason => console.log(reason));
+  .then(response => {
+    response.meals.forEach(meal => {
+      option[0].optionsList.push({
+        value: meal.strArea,
+        label: meal.strArea
+      })
+    })
+    console.log(option[0].optionsList)
+  })
+  .catch(reason => console.log(reason));
 }
 
 function fetchIngredients() {
@@ -100,30 +104,22 @@ function fetchRandomMeal(results) {
 async function fetchMealsByIngredient(ingredient) {
   const req = "https://www.themealdb.com/api/json/v1/1/filter.php?i=" + ingredient
   const response = await fetch(req)
-  const meals = await response.json();
+  const meals = await response.json()
   return meals.meals
 }
 
-async function fetchMealsByArea(area, results) {
-  fetch("https://www.themealdb.com/api/json/v1/1/filter.php?a=" + area)
-  .then(res => res.json())
-  .then(res => {
-    results.push({
-      name: res.meals[0].strMeal,
-      id: res.meals[0].idMeal
-    })
-  }).catch(reason => console.log(reason));
+async function fetchMealsByArea(area) {
+  const req = "https://www.themealdb.com/api/json/v1/1/filter.php?a=" + area
+  const response = await fetch(req)
+  const meals = await response.json()
+  return meals.meals
 }
 
-async function fetchMealsByCategory(category, results) {
-  fetch("https://ww.themealdb.com/api/json/v1/1/filter.php?a=" + category)
-  .then(res => res.json())
-  .then(res => {
-    results.push({
-      name: res.meals[0].strMeal,
-      id: res.meals[0].idMeal
-    })
-  }).catch(reason => console.log(reason));
+async function fetchMealsByCategory(category) {
+  const req = "https://www.themealdb.com/api/json/v1/1/filter.php?c=" + category
+  const response = await fetch(req)
+  const meals = await response.json()
+  return meals.meals
 }
 
 function compareMeals(a, b) {
@@ -151,14 +147,12 @@ async function fetchMeals(ingredients, areas, categories) {
   ingredients.forEach(element => {
     fetchMealsByIngredient(element).then(res => result.concat(result));
   });
-  /*
   areas.forEach(element => {
     fetchMealsByArea(element).then(res => result.concat(res));
   })
   categories.forEach(element => {
     fetchMealsByCategory(element).then(res => result.concat(res));
   })
-  */
   cleanResults(result);
   return result;
 }

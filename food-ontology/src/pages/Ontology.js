@@ -3,19 +3,17 @@ import SelectOption from '../component/SelectOption';
 import Meal from '../component/Meal';
 import { React, useState, useEffect } from "react";
 import "../stylesheet/Ontology.css"
-import {fetchCategories, fetchArea, fetchIngredients, fetchRandomMeal, fetchMealWithIngredient, getOption, getResults} from "../api/TheMealDB"
 import * as MealDB from "../api/TheMealDB"
 
 
 function Ontology() {
-    //useEffect(fetchCategories);
-    //useEffect(fetchArea);
-    //useEffect(fetchIngredients);
+    useEffect(MealDB.fetchCategories);
+    useEffect(MealDB.fetchArea);
+    //useEffect(MealDB.fetchIngredients);
     const [ingredients, setIngredients] = useState([]); //list of the ingredients needed for the query
-    const [options, setOptions] = useState(getOption()); //change "option" to [] when the query will be done
+    const [options, setOptions] = useState(MealDB.getOption()); //change "option" to [] when the query will be done
     const [results, setResults] = useState([]) //change "result" to [] when the query will be done
     const [total, setTotal] = useState(0);
-    const [functionCalled, setFunctionCalled] = useState(false);
 
     const handleOptionChange = (label, selectedOptions) => {
       setOptions((prevOptions) =>
@@ -24,23 +22,12 @@ function Ontology() {
         )
       );
     };
-    
-    useEffect(() => {
-      /*
-      setTotal(ingredients.length + options.reduce((total, option) => total + option.optionsChoose.length, 0));
-      if (total >= 3 && !functionCalled) {
-        ingredients.forEach(element => {
-          MealDB.fetchMealsByIngredient(element).then((res) => {
-            setResults(results.concat(res));
-          })
-        })
-        setFunctionCalled(true);
-      }*/
-    })
 
     const searchButton = async () => {
       setTotal(ingredients.length + options.reduce((total, option) => total + option.optionsChoose.length, 0));
-      const promises = ingredients.map(ingredient => MealDB.fetchMealsByIngredient(ingredient));
+      let promises = ingredients.map(ingredient => MealDB.fetchMealsByIngredient(ingredient));
+      promises.concat(options[0].optionsChoose.map(area => MealDB.fetchMealsByArea(area)));
+      promises.concat(options[1].optionsChoose.map(category => MealDB.fetchMealsByCategory(category)))
       const responses = await Promise.all(promises);
       let result = [].concat(...responses)
       console.log(result);
