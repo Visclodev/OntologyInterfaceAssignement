@@ -7,8 +7,8 @@ import * as MealDB from "../api/TheMealDB"
 
 
 function Ontology() {
-    useEffect(MealDB.fetchCategories);
-    useEffect(MealDB.fetchArea);
+    useEffect(() => {MealDB.fetchCategories()});
+    useEffect(() => {MealDB.fetchArea()});
     //useEffect(MealDB.fetchIngredients);
     const [ingredients, setIngredients] = useState([]); //list of the ingredients needed for the query
     const [options, setOptions] = useState(MealDB.getOption()); //change "option" to [] when the query will be done
@@ -32,6 +32,8 @@ function Ontology() {
       let result = [].concat(...responses)
       console.log(result);
       MealDB.cleanResults(result);
+      result = await MealDB.fillMealData(result);
+      result = await MealDB.exclusiveInclusion(result, ingredients, options[0].optionsChoose, options[1].optionsChoose)
       setResults(result);
     }
 

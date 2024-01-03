@@ -34,7 +34,7 @@ function getOption() {
 }
 
 function fetchCategories() {
-  if (option[1].optionsList.length != 0)
+  if (option[1].optionsList.length !== 0)
     return;
     fetch("https://www.themealdb.com/api/json/v1/1/list.php?c=list")
     .then(response => {
@@ -53,7 +53,7 @@ function fetchCategories() {
 }
   
 function fetchArea() {
-  if (option[0].optionsList.length != 0)
+  if (option[0].optionsList.length !== 0)
     return;
   fetch("https://www.themealdb.com/api/json/v1/1/list.php?a=list")
   .then(response => {
@@ -157,16 +157,94 @@ async function fetchMeals(ingredients, areas, categories) {
   return result;
 }
 
+async function fetchMealById(idMeal) {
+  let result;
+
+  try {
+    const request = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + idMeal
+    const response = await fetch(request);
+    const meals = await response.json();
+    result = meals.meals[0];
+  } catch (error) {
+    console.log(error);
+    result = [];
+  }  
+  return result;
+}
+
+async function fillMealData(meals) {
+  let newMeals = [];
+
+  meals.forEach(meal => {
+    newMeals.push(fetchMealById(meal.idMeal));
+  });
+  const resolvedMeals = await Promise.all(newMeals);
+  return resolvedMeals;
+}
+
+function verifyArea(meal, areas) {
+  if (areas.length === 0)
+    return true;
+  areas.forEach(area => {
+    if (meal.strArea === area)
+      return true;
+  });
+  return false;
+}
+
+function verifyCategory(meal, categories) {
+  if (categories.length === 0)
+    return true;
+  categories.forEach(category => {
+    if (meal.strCategory === category)
+      return true;
+  });
+  return false;
+}
+
+function storeIngredients(meal) {
+  let ingredients = [];
+
+  for (let i = 1; i !== 21; i++)
+    ingredients.push(meal["strIngredient" + i]);
+  return ingredients;
+}
+
+function verifyIngredients(meal, ingredients) {
+  for (let i = ingredients - 1; i > 0; i++)
+    meal.strIngredients.forEach(mealIngredient => {
+      if (mealIngredient === ingredients[i])
+        ingredients.splice(i, 1);
+    })
+  return (ingredients.length === 0)
+}
+
+// This function exclude meals not containing every ingredient and at least
+// one area and one category from the selected ones
+function exclusiveInclusion(meals, ingredients, areas, categories) {
+  for (let i = meals.length - 1; i > 0; i--) {
+    if (verifyArea(meals[i], areas) || verifyCategory(meals[i], categories)) {
+      meals.splice(i, 1);
+      continue;
+    }
+    meals[i]["strIngredients"] = storeIngredients(meals[i]);
+    if (!verifyIngredients(meals[i], ingredients))
+      meals.splice(i, 1);
+  }
+  return meals;
+}
+
 module.exports = {
-    fetchCategories,
-    fetchArea,
-    fetchIngredients,
-    fetchRandomMeal,
-    getOption,
-    fetchMealsByIngredient,
-    fetchMealsByArea,
-    fetchMealsByCategory,
-    cleanResults,
-    fetchMeals
-  };
-  
+  fetchCategories,
+  fetchArea,
+  fetchIngredients,
+  fetchRandomMeal,
+  getOption,
+  fetchMealsByIngredient,
+  fetchMealsByArea,
+  fetchMealsByCategory,
+  cleanResults,
+  fetchMeals,
+  exclusiveInclusion,
+  fillMealData,
+};
