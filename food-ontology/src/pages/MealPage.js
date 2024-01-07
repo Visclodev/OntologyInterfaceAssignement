@@ -1,38 +1,40 @@
 import * as React from 'react';
 import { useLocation } from 'react-router-dom';
 import "../stylesheet/MealPage.css";
+import RelatedMeals from '../component/RelatedMeals';
 
 function MealPage(props) {
   const location = useLocation();
   const { mealData } = location.state;
-  console.log(mealData);
   return (
     <div className='main'>
       <h2>{mealData.strMeal}</h2>
-      <div className='meal'>
+      <div className='mealCard'>
         <img
           src={mealData.strMealThumb}
           className='mealImage'
         ></img>
         <div className='mealDescription'>
-          Ingredients:
-          <ul>
+          <h3>Ingredients:</h3>
+          <ul className="ingredientList">
             {mealData.strIngredients?.map((ingredient) => (
-                <li>ingredient</li>
+                <li>{ingredient}</li>
               ))}
           </ul>
-          Recipe:
+          <h3>Recipe:</h3>
           <p>
             {mealData.strInstructions}
           </p>
         </div>
       </div>
-      <div className='sameCategory'>
-        Some other {mealData.strCategory} meals:
-      </div>
-      <div className='sameArea'>
-        Other meals from {mealData.strArea}:
-      </div>
+      <RelatedMeals
+        value={mealData.strCategory}
+        type="Category"
+      ></RelatedMeals>
+      <RelatedMeals
+        value={mealData.strArea}
+        type="Area"
+      ></RelatedMeals>
     </div>
   )
 }

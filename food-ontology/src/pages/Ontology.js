@@ -27,14 +27,16 @@ function Ontology() {
       setTotal(3);
       //setTotal(ingredients.length + options.reduce((total, option) => total + option.optionsChoose.length, 0));
       let promises = ingredients.map(ingredient => MealDB.fetchMealsByIngredient(ingredient));
-      promises.concat(options[0].optionsChoose.map(area => MealDB.fetchMealsByArea(area)));
-      promises.concat(options[1].optionsChoose.map(category => MealDB.fetchMealsByCategory(category)))
+      promises = promises.concat(options[0].optionsChoose.map(area => MealDB.fetchMealsByArea(area.value)));
+      promises = promises.concat(options[1].optionsChoose.map(category => MealDB.fetchMealsByCategory(category.value)))
       const responses = await Promise.all(promises);
       let result = [].concat(...responses)
       MealDB.cleanResults(result);
+
+      // Dark magic, don't touch this
       result = await MealDB.fillMealData(result);
-      console.log(result);
-      result = await MealDB.exclusiveInclusion(result, ingredients, options[0].optionsChoose, options[1].optionsChoose)
+      const resultMore = await Promise.all(result);
+      result = await MealDB.exclusiveInclusion(resultMore, ingredients, options[0].optionsChoose, options[1].optionsChoose)
       setResults(result);
     }
 

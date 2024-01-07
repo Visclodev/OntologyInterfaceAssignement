@@ -4,7 +4,7 @@
     flex-direction: column;
     flex: 1;
 }
-.meal {
+.mealCard {
     display: flex;
     background-color: brown;
     border-radius: 10px;
@@ -13,6 +13,10 @@
 .mealImage {
     display: flex;
     border-radius: 20px;
+}
+.ingredientList {
+    display: flex;
+    flex-wrap: wrap;
 }
 .sameCategory {
     display: flex;

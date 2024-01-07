@@ -133,7 +133,6 @@ function compareMeals(a, b) {
 
 function cleanResults(r) {
   r.sort(compareMeals);
-  console.log(r);
   for (let i = r.length - 1; i > 0; i--) {
     if (r[i].idMeal === r[i - 1].idMeal) {
       r.splice(i, 1);
@@ -173,19 +172,8 @@ async function fetchMealById(idMeal) {
 }
 
 async function fillMealData(meals) {
-  try {
-    const newMeals = meals.map(meal => fetchMealById(meal.idMeal));
-    const resolvedMeals = await Promise.all(newMeals);
-    console.log("Resolved Meals:", resolvedMeals);
-    // TODO: resolvedMeals has length 0 for some reason
-    return resolvedMeals;
-  } catch (error) {
-    console.error("Error occurred while fetching meals:", error);
-    return [];
-  }
+  return meals.map(meal => fetchMealById(meal.idMeal));
 }
-
-
 
 function verifyArea(meal, areas) {
   if (areas.length === 0) {
@@ -209,7 +197,6 @@ function verifyCategory(meal, categories) {
 }
 
 function storeIngredients(meal) {
-  console.log("storing ingredients");
   let ingredients = [];
 
   for (let i = 1; i !== 21; i++)
@@ -217,26 +204,27 @@ function storeIngredients(meal) {
   return ingredients;
 }
 
+// return true if all ingredients in ingredients are in meal.strIngredients
 function verifyIngredients(meal, ingredients) {
-  for (let i = ingredients - 1; i > 0; i++)
-    meal.strIngredients.forEach(mealIngredient => {
-      if (mealIngredient === ingredients[i])
-        ingredients.splice(i, 1);
-    })
-  return (ingredients.length === 0)
+  for (let i = ingredients.length - 1; i >= 0; i--)
+    if (meal.strIngredients.includes(ingredients[i]))
+      ingredients.splice(i, 1);
+  return ingredients.length === 0;
 }
 
 // This function exclude meals not containing every ingredient and at least
 // one area and one category from the selected ones
 function exclusiveInclusion(meals, ingredients, areas, categories) {
   for (let i = meals.length - 1; i >= 0; i--) {
-    if (verifyArea(meals[i], areas) || verifyCategory(meals[i], categories)) {
+    if (!verifyArea(meals[i], areas) && !verifyCategory(meals[i], categories)) {
+      console.log("removing meal");
       meals.splice(i, 1);
       continue;
     }
     meals[i]["strIngredients"] = storeIngredients(meals[i]);
-    if (!verifyIngredients(meals[i], ingredients))
+    if (!verifyIngredients(meals[i], ingredients.slice())) {
       meals.splice(i, 1);
+    }
   }
   return meals;
 }
