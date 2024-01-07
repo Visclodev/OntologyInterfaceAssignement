@@ -1,0 +1,26 @@
+.main {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.meal {
+    display: flex;
+    background-color: brown;
+    border-radius: 10px;
+    flex: 1
+}
+.mealImage {
+    display: flex;
+    border-radius: 20px;
+}
+.sameCategory {
+    display: flex;
+    background-color: blue;
+    flex: 1
+}
+.sameArea {
+    display: flex;
+    background-color: green;
+    flex: 1
+}

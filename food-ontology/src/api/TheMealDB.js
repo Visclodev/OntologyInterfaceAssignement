@@ -168,23 +168,29 @@ async function fetchMealById(idMeal) {
   } catch (error) {
     console.log(error);
     result = [];
-  }  
+  }
   return result;
 }
 
 async function fillMealData(meals) {
-  let newMeals = [];
-
-  meals.forEach(meal => {
-    newMeals.push(fetchMealById(meal.idMeal));
-  });
-  const resolvedMeals = await Promise.all(newMeals);
-  return resolvedMeals;
+  try {
+    const newMeals = meals.map(meal => fetchMealById(meal.idMeal));
+    const resolvedMeals = await Promise.all(newMeals);
+    console.log("Resolved Meals:", resolvedMeals);
+    // TODO: resolvedMeals has length 0 for some reason
+    return resolvedMeals;
+  } catch (error) {
+    console.error("Error occurred while fetching meals:", error);
+    return [];
+  }
 }
 
+
+
 function verifyArea(meal, areas) {
-  if (areas.length === 0)
+  if (areas.length === 0) {
     return true;
+  }
   areas.forEach(area => {
     if (meal.strArea === area)
       return true;
@@ -203,6 +209,7 @@ function verifyCategory(meal, categories) {
 }
 
 function storeIngredients(meal) {
+  console.log("storing ingredients");
   let ingredients = [];
 
   for (let i = 1; i !== 21; i++)
@@ -222,7 +229,7 @@ function verifyIngredients(meal, ingredients) {
 // This function exclude meals not containing every ingredient and at least
 // one area and one category from the selected ones
 function exclusiveInclusion(meals, ingredients, areas, categories) {
-  for (let i = meals.length - 1; i > 0; i--) {
+  for (let i = meals.length - 1; i >= 0; i--) {
     if (verifyArea(meals[i], areas) || verifyCategory(meals[i], categories)) {
       meals.splice(i, 1);
       continue;

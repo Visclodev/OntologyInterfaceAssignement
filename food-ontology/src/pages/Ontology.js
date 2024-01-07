@@ -24,15 +24,16 @@ function Ontology() {
     };
 
     const searchButton = async () => {
-      setTotal(ingredients.length + options.reduce((total, option) => total + option.optionsChoose.length, 0));
+      setTotal(3);
+      //setTotal(ingredients.length + options.reduce((total, option) => total + option.optionsChoose.length, 0));
       let promises = ingredients.map(ingredient => MealDB.fetchMealsByIngredient(ingredient));
       promises.concat(options[0].optionsChoose.map(area => MealDB.fetchMealsByArea(area)));
       promises.concat(options[1].optionsChoose.map(category => MealDB.fetchMealsByCategory(category)))
       const responses = await Promise.all(promises);
       let result = [].concat(...responses)
-      console.log(result);
       MealDB.cleanResults(result);
       result = await MealDB.fillMealData(result);
+      console.log(result);
       result = await MealDB.exclusiveInclusion(result, ingredients, options[0].optionsChoose, options[1].optionsChoose)
       setResults(result);
     }
@@ -48,7 +49,7 @@ function Ontology() {
           {
             total >= 3 ? 
             <div> 
-              <hr class="solid"></hr>
+              <hr className="solid"></hr>
               {results?.map((meal) => (
                   <Meal meal={meal}></Meal>
               ))}
