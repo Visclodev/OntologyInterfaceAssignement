@@ -38,7 +38,6 @@ function fetchCategories() {
     return;
     fetch("https://www.themealdb.com/api/json/v1/1/list.php?c=list")
     .then(response => {
-        console.log(response)
         return response.json()
       })
     .then(response => {
@@ -57,7 +56,6 @@ function fetchArea() {
     return;
   fetch("https://www.themealdb.com/api/json/v1/1/list.php?a=list")
   .then(response => {
-      console.log(response)
       return response.json()
     })
   .then(response => {
@@ -67,7 +65,6 @@ function fetchArea() {
         label: meal.strArea
       })
     })
-    console.log(option[0].optionsList)
   })
   .catch(reason => console.log(reason));
 }
@@ -75,7 +72,6 @@ function fetchArea() {
 function fetchIngredients() {
     fetch("https://www.themealdb.com/api/json/v1/1/list.php?i=list")
     .then(response => {
-      console.log(response)
       return response.json()
     })
     .then(response => {
@@ -86,7 +82,6 @@ function fetchIngredients() {
           label: meal.strIngredient
         })
       })
-      console.log(availableIngredients);
     })
     .catch(reason => console.log(reason));
 }
@@ -242,4 +237,6 @@ module.exports = {
   fetchMeals,
   exclusiveInclusion,
   fillMealData,
+  fetchMealById,
+  storeIngredients,
 };

@@ -17,13 +17,13 @@ export default function RelatedMeals(props) {
                 setMeals(res);
             });
         }
-    }, [])
+    }, [props.value])
 
     return (
         <div>
             <h3>{title}</h3>
             {meals?.map((meal) => (
-                <Meal meal={meal}></Meal>
+                <Meal meal={meal} updateMeal={props.updateMeal}></Meal>
             ))}
         </div>
     );
