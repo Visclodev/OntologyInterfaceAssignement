@@ -7,11 +7,13 @@
     width: 100vw;
 }
 .mealCard {
+    margin-top: 10px;
     margin-left: 10px;
     margin-right: 10px;
     display: flex;
-    background-color: rgb(235, 174, 239);
     border-radius: 20px;
+    border: solid #fcf4ff;
+    box-shadow: 10px 5px 5px #f9f2fb;
 }
 .leftCard {
     display: flex;
@@ -30,6 +32,7 @@
 .mealDescription p {
     text-align: justify;
     margin: 2em;
+    font-size:large;
 }
 .ingredientList {
     display: flex;
