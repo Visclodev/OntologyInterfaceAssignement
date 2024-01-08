@@ -10,7 +10,7 @@
     margin-left: 10px;
     margin-right: 10px;
     display: flex;
-    background-color: brown;
+    background-color: rgb(235, 174, 239);
     border-radius: 20px;
 }
 .leftCard {
@@ -27,7 +27,19 @@
     margin-left: 10px;
     margin-right: 10px;
 }
+.mealDescription p {
+    text-align: justify;
+    margin: 2em;
+}
 .ingredientList {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
+}
+.ingredientList li {
+    background-color:rgb(178, 130, 185);
+    border-radius: 5px;
+    padding: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
 }

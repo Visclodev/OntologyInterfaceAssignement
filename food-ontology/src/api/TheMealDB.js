@@ -208,7 +208,10 @@ function mapIngredients(meal) {
   let i = 0;
 
   while (meal.strIngredients[i]) {
-    result[meal.strIngredients[i]] = meal[meal.strMeasures[i]];
+    result.push({
+      ingredient: meal.strIngredients[i],
+      measure: meal.strMeasures[i]
+    })
     i++;
   }
   return result;

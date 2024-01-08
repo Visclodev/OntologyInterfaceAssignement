@@ -14,6 +14,7 @@ function MealPage(props) {
         res["strIngredients"] = storeArray("strIngredient", res);
         res["strMeasures"] = storeArray("strMeasure", res);
         res["ingredientMap"] = mapIngredients(res);
+        console.log(res.ingredientMap);
         setMealData(res);
       })
     }
@@ -32,9 +33,9 @@ function MealPage(props) {
         <div className='mealDescription'>
           <h3>Ingredients:</h3>
           <ul className="ingredientList">
-            {mealData.strIngredients?.map((ingredient) => (
-                <li>{ingredient}</li>
-              ))}
+            {mealData.ingredientMap?.map((pair) => (
+                <li>{pair.measure} {pair.ingredient}</li>
+            ))}
           </ul>
           <h3>Recipe:</h3>
           <p>
