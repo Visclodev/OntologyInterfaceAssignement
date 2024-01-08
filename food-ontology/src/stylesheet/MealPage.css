@@ -2,29 +2,32 @@
     background-color: white;
     display: flex;
     flex-direction: column;
-    flex: 1;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
 }
 .mealCard {
+    margin-left: 10px;
+    margin-right: 10px;
     display: flex;
     background-color: brown;
-    border-radius: 10px;
-    flex: 1
+    border-radius: 20px;
+}
+.leftCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1vw;
 }
 .mealImage {
-    display: flex;
-    border-radius: 20px;
+    border-radius: 10px;
+    height: 50vh;
+}
+.mealDescription {
+    margin-left: 10px;
+    margin-right: 10px;
 }
 .ingredientList {
     display: flex;
     flex-wrap: wrap;
-}
-.sameCategory {
-    display: flex;
-    background-color: blue;
-    flex: 1
-}
-.sameArea {
-    display: flex;
-    background-color: green;
-    flex: 1
 }

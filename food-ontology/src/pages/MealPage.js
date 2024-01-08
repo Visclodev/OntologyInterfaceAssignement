@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useLocation } from 'react-router-dom';
 import "../stylesheet/MealPage.css";
 import RelatedMeals from '../component/RelatedMeals';
-import { fetchMealById, storeIngredients } from '../api/TheMealDB';
+import { fetchMealById, storeArray, mapIngredients } from '../api/TheMealDB';
 
 function MealPage(props) {
   const location = useLocation();
@@ -11,7 +11,9 @@ function MealPage(props) {
   React.useEffect(() => {
     if (!mealData.strInstructions) {
       fetchMealById(mealData.idMeal).then((res) => {
-        res["strIngredients"] = storeIngredients(res);
+        res["strIngredients"] = storeArray("strIngredient", res);
+        res["strMeasures"] = storeArray("strMeasure", res);
+        res["ingredientMap"] = mapIngredients(res);
         setMealData(res);
       })
     }
@@ -19,12 +21,14 @@ function MealPage(props) {
 
   return (
     <div className='main'>
-      <h2>{mealData.strMeal}</h2>
       <div className='mealCard'>
-        <img
-          src={mealData.strMealThumb}
-          className='mealImage'
-        ></img>
+        <div className='leftCard'>
+          <h2>{mealData.strMeal}</h2>
+          <img
+            src={mealData.strMealThumb}
+            className='mealImage'
+          ></img>
+        </div>
         <div className='mealDescription'>
           <h3>Ingredients:</h3>
           <ul className="ingredientList">

@@ -191,12 +191,27 @@ function verifyCategory(meal, categories) {
   return false;
 }
 
-function storeIngredients(meal) {
-  let ingredients = [];
+// arrayName: "strIngredient" || "strMeasure"
+function storeArray(arrayName, meal) {
+  let result = [];
+  let i = 1;
 
-  for (let i = 1; i !== 21; i++)
-    ingredients.push(meal["strIngredient" + i]);
-  return ingredients;
+  while (meal[arrayName + i]) {
+    result.push(meal[arrayName + i]);
+    i++;
+  }
+  return result;
+}
+
+function mapIngredients(meal) {
+  let result = [];
+  let i = 0;
+
+  while (meal.strIngredients[i]) {
+    result[meal.strIngredients[i]] = meal[meal.strMeasures[i]];
+    i++;
+  }
+  return result;
 }
 
 // return true if all ingredients in ingredients are in meal.strIngredients
@@ -216,7 +231,9 @@ function exclusiveInclusion(meals, ingredients, areas, categories) {
       meals.splice(i, 1);
       continue;
     }
-    meals[i]["strIngredients"] = storeIngredients(meals[i]);
+    meals[i]["strIngredients"] = storeArray("strIngredient", meals[i]);
+    meals[i]["strMeasures"] = storeArray("strMeasure", meals[i]);
+    meals[i]["ingredientMap"] = mapIngredients(meals[i]);
     if (!verifyIngredients(meals[i], ingredients.slice())) {
       meals.splice(i, 1);
     }
@@ -238,5 +255,6 @@ module.exports = {
   exclusiveInclusion,
   fillMealData,
   fetchMealById,
-  storeIngredients,
+  storeArray,
+  mapIngredients
 };
