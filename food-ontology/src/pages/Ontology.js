@@ -7,8 +7,8 @@ import * as MealDB from "../api/TheMealDB"
 
 
 function Ontology() {
-    useEffect(() => {MealDB.fetchCategories()});
-    useEffect(() => {MealDB.fetchArea()});
+    useEffect(() => {MealDB.fetchCategories()}, []);
+    useEffect(() => {MealDB.fetchArea()}, []);
     //useEffect(MealDB.fetchIngredients);
     const [ingredients, setIngredients] = useState([]); //list of the ingredients needed for the query
     const [options, setOptions] = useState(MealDB.getOption()); //change "option" to [] when the query will be done
@@ -24,6 +24,7 @@ function Ontology() {
     };
 
     const searchButton = async () => {
+      console.log("searching...");
       setTotal(3);
       //setTotal(ingredients.length + options.reduce((total, option) => total + option.optionsChoose.length, 0));
       let promises = ingredients.map(ingredient => MealDB.fetchMealsByIngredient(ingredient));
@@ -40,6 +41,8 @@ function Ontology() {
       setResults(result);
     }
 
+    useEffect(() => {searchButton()}, [ingredients, options]);
+
     return (
       <div>
         <div style={{marginTop: "2%"}}>
@@ -47,7 +50,6 @@ function Ontology() {
             <SelectOption label={option.label} optionsList={option.optionsList} optionsChoose={option.optionsChoose} onOptionChange={handleOptionChange} optionsData={options}></SelectOption>
           ))}
           <SearchBar ingredients={ingredients} setIngredients={setIngredients}></SearchBar>
-          <button onClick={searchButton}>search</button>
           {
             total >= 3 ? 
             <div> 
