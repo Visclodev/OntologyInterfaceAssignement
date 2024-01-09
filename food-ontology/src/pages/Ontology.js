@@ -24,6 +24,8 @@ function Ontology() {
     };
 
     const searchButton = async () => {
+      if (ingredients.length + options[0].optionsChoose.length + options[1].optionsChoose.length === 0)
+        return;
       console.log("searching...");
       setTotal(3);
       //setTotal(ingredients.length + options.reduce((total, option) => total + option.optionsChoose.length, 0));

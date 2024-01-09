@@ -39,8 +39,16 @@
     flex-wrap: wrap;
     justify-content: space-between;
 }
-.ingredientList li {
-    background-color:rgb(178, 130, 185);
+.unselectedIngredient {
+    background-color: #ffa6f8;
+    border-radius: 5px;
+    padding: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.selectedIngredient {
+    background-color: #f468e8;
     border-radius: 5px;
     padding: 2px;
     padding-left: 4px;
