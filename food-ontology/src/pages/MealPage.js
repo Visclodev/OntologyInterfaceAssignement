@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useLocation } from 'react-router-dom';
 import "../stylesheet/MealPage.css";
+import "../stylesheet/OntoodBtn.css"
 import RelatedMeals from '../component/RelatedMeals';
 import { fetchMealById, storeArray, mapIngredients } from '../api/TheMealDB';
 import Ingredient from '../component/Ingredient';
@@ -9,6 +10,7 @@ function MealPage(props) {
   const location = useLocation();
   const [mealData, setMealData] = React.useState(location.state.mealData);
   const [ingredientMap, setIngredientMap] = React.useState([]);
+  const [showIngredientButton, setShowIngredientButton] = React.useState(false);
 
   function addSelectProperty(input) {
     input.forEach(element => {
@@ -32,8 +34,9 @@ function MealPage(props) {
 
   const ingredientClicked = (data) => {
     let newIngredientMap = ingredientMap;
+    setShowIngredientButton(true);
 
-    if (data.target.className == "selectedIngredient") {
+    if (data.target.className === "selectedIngredient") {
       data.target.className = "unselectedIngredient";
     } else {
       data.target.className = "selectedIngredient";
@@ -56,6 +59,7 @@ function MealPage(props) {
           <img
             src={mealData.strMealThumb}
             className='mealImage'
+            alt={"image of " + mealData.strMeal}
           ></img>
         </div>
         <div className='mealDescription'>
@@ -68,9 +72,15 @@ function MealPage(props) {
                 measure={pair.measure}
                 selected={pair.selected}
               />
-                //<li title={pair.ingredient} onClick={ingredientClicked}>{pair.measure} {pair.ingredient}</li>
             ))}
           </ul>
+          {
+            showIngredientButton ?
+            <div className='ingredientBtn'>
+              <button class="button-30">Search with these ingredients</button>
+            </div> :
+            <br/>
+          }
           <h3>Recipe:</h3>
           <p>
             {mealData.strInstructions}
