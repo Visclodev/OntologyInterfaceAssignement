@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import "../stylesheet/MealPage.css";
 import "../stylesheet/OntoodBtn.css"
 import RelatedMeals from '../component/RelatedMeals';
@@ -11,6 +11,7 @@ function MealPage(props) {
   const [mealData, setMealData] = React.useState(location.state.mealData);
   const [ingredientMap, setIngredientMap] = React.useState([]);
   const [showIngredientButton, setShowIngredientButton] = React.useState(false);
+  const [selectedIngredients, setSelectedIngredients] = React.useState([]);
 
   function addSelectProperty(input) {
     input.forEach(element => {
@@ -46,9 +47,17 @@ function MealPage(props) {
       if (ingredientMap[i].ingredient === data.target.title) {
         newIngredientMap[i].selected = !ingredientMap[i].selected;
         setIngredientMap(newIngredientMap);
-        return;
+        break;
       }
     }
+
+    let newSelecteds = [];
+    
+    ingredientMap.forEach(ingredient => {
+      if (ingredient.selected)
+      newSelecteds.push(ingredient.ingredient);
+    });
+    setSelectedIngredients(newSelecteds);
   }
 
   return (
@@ -77,7 +86,11 @@ function MealPage(props) {
           {
             showIngredientButton ?
             <div className='ingredientBtn'>
-              <button class="button-30">Search with these ingredients</button>
+              <button class="button-30">
+                <Link to="/" state={{ingredients:selectedIngredients}}>
+                  Search with these ingredients
+                </Link>
+              </button>
             </div> :
             <br/>
           }
