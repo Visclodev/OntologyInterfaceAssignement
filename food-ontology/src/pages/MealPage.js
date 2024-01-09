@@ -14,7 +14,6 @@ function MealPage(props) {
         res["strIngredients"] = storeArray("strIngredient", res);
         res["strMeasures"] = storeArray("strMeasure", res);
         res["ingredientMap"] = mapIngredients(res);
-        console.log(res.ingredientMap);
         setMealData(res);
       })
     }

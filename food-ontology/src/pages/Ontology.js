@@ -35,7 +35,7 @@ function Ontology() {
       MealDB.cleanResults(result);
 
       // Dark magic, don't touch this
-      result = await MealDB.fillMealData(result);
+      result = await MealDB.fillMealDataSlow(result);
       const resultMore = await Promise.all(result);
       result = await MealDB.exclusiveInclusion(resultMore, ingredients, options[0].optionsChoose, options[1].optionsChoose)
       setResults(result);

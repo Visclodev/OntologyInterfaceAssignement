@@ -170,6 +170,18 @@ async function fillMealData(meals) {
   return meals.map(meal => fetchMealById(meal.idMeal));
 }
 
+// This function is slower than her sister to prevent
+// Error 429: Too much request
+async function fillMealDataSlow(meals) {
+  let result = [];
+
+  for (let i = 0; meals[i] != undefined; i++) {
+    let newMeal = await fetchMealById(meals[i].idMeal);
+    result.push(newMeal);
+  }
+  return result;
+}
+
 function verifyArea(meal, areas) {
   if (areas.length === 0) {
     return true;
@@ -257,6 +269,7 @@ module.exports = {
   fetchMeals,
   exclusiveInclusion,
   fillMealData,
+  fillMealDataSlow,
   fetchMealById,
   storeArray,
   mapIngredients

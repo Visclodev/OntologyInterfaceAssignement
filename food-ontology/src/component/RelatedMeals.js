@@ -10,13 +10,15 @@ export default function RelatedMeals(props) {
         setTitle("Other " + props.value + " meals:");
         if (props.type === "Area") {
             MealDB.fetchMealsByArea(props.value).then(res => {
-                setMeals(res.slice(0, 5));
+                if (res)
+                    setMeals(res.slice(0, 5));
             }).catch((reason) => {
                 console.log(reason);
             });
         } else {
             MealDB.fetchMealsByCategory(props.value).then(res => {
-                setMeals(res.slice(0, 5));
+                if (res)
+                    setMeals(res.slice(0, 5));
             }).catch((reason) => {
                 console.log(reason);
             });
