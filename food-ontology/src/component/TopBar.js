@@ -11,6 +11,7 @@ function TopBar() {
             padding: "1%", 
             backgroundColor: "#fcf4ff",
             boxShadow: "10px 5px 5px #f9f2fb"}} >
+            <Link to="/">
             <div style={{ marginLeft: "2vw" }}>
                 {/*<strong style={{ fontSize: "1.8rem" }}>ontood.</strong>*/}
                 <img
@@ -18,6 +19,8 @@ function TopBar() {
                 alt="ontood logo"
                 style={{  width: '75px' }} />
             </div>
+            </Link>
+            
             <div style={{
               display: "flex",
               flexWrap: "wrap",

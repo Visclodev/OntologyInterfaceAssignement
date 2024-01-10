@@ -1,7 +1,48 @@
-.meal {
-    border: solid #fcf4ff;
-    display: inline-block;
-    margin: 0.5% 0.5% 0.5% 0.5%;
-    min-width: 10%;
-    box-shadow: 10px 5px 5px #f9f2fb
+
+
+.meal-card {
+    border: solid 1px #fcf4ff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 10px 5px 5px #f9f2fb;
+    width: auto; /* Adjust as needed */
+    height: auto; /* Set a fixed height */
+    overflow: auto; /* Add a scrollbar if the content is too long */
 }
+
+
+
+.meal-image {
+    width: 80%;
+    height: auto;
+    object-fit: cover;
+    margin: auto;
+}
+
+.meal-info {
+    padding: 10px;
+    text-align: center;
+    
+}
+.meal-info h3 {
+    padding: 5px;
+    text-align: center;
+    font: 1.2em "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    
+}
+.meal-info small {
+    padding: 10px;
+    text-align: center;
+    
+}
+
+.meal-action {
+    margin-top:auto;
+}
+
+
+
