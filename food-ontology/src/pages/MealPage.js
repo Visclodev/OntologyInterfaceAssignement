@@ -108,7 +108,7 @@ function MealPage(props) {
       :
       <iframe src={mealData.strEmbedYtb}
         frameborder='0'
-        allow='fullscreen; encrypted-media'
+        allow='fullscreen'
         allowfullscreen={true}
         title='video'
       />
