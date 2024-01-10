@@ -151,6 +151,12 @@ async function fetchMeals(ingredients, areas, categories) {
   return result;
 }
 
+function linkToEmbed(youtubeLink) {
+  if (!youtubeLink)
+    return "";
+  return "https://youtube.com/embed/" + youtubeLink.slice(32);
+}
+
 async function fetchMealById(idMeal) {
   let result;
 
@@ -159,6 +165,8 @@ async function fetchMealById(idMeal) {
     const response = await fetch(request);
     const meals = await response.json();
     result = meals.meals[0];
+    result["strEmbedYtb"] = linkToEmbed(result["strYoutube"]);
+    console.log(result["strEmbedYtb"]);
   } catch (error) {
     console.log(error);
     result = [];

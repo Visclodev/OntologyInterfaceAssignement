@@ -26,10 +26,12 @@ function MealPage(props) {
         res["strIngredients"] = storeArray("strIngredient", res);
         res["strMeasures"] = storeArray("strMeasure", res);
         res["ingredientMap"] = mapIngredients(res);
+        setIngredientMap(addSelectProperty(res.ingredientMap));
         setMealData(res);
       })
+    } else if (mealData.ingredientMap) {
+      setIngredientMap(addSelectProperty(mealData.ingredientMap));
     }
-    setIngredientMap(addSelectProperty(mealData.ingredientMap));
   }, [mealData]);
 
 
@@ -100,6 +102,18 @@ function MealPage(props) {
           </p>
         </div>
       </div>
+      {
+      mealData.strEmbedYtb == "" ?
+      <h3>No video available</h3>
+      :
+      <iframe src={mealData.strEmbedYtb}
+        frameborder='0'
+        allow='fullscreen; encrypted-media'
+        allowfullscreen={true}
+        title='video'
+      />
+      }
+      
       <RelatedMeals
         value={mealData.strCategory}
         type="Category"
