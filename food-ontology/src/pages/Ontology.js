@@ -56,8 +56,7 @@ function Ontology() {
           <SearchBar ingredients={ingredients} setIngredients={setIngredients}></SearchBar>
           {
             total >= 3 ? 
-            <div> 
-              <hr className="solid"></hr>
+            <div className="mealList">
               {results?.map((meal) => (
                   <Meal meal={meal}></Meal>
               ))}

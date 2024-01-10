@@ -28,9 +28,11 @@ export default function RelatedMeals(props) {
     return (
         <div>
             <h3>{title}</h3>
-            {meals?.map((meal) => (
-                <Meal meal={meal} updateMeal={props.updateMeal}></Meal>
-            ))}
+            <div className="mealList">
+                {meals?.map((meal) => (
+                    <Meal meal={meal} updateMeal={props.updateMeal}></Meal>
+                ))}
+            </div>
         </div>
     );
 }
