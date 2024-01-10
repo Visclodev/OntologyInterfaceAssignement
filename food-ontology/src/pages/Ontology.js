@@ -9,11 +9,10 @@ import { useLocation } from 'react-router-dom';
 
 function Ontology() {
   const location = useLocation();
-  const state = location.state;
     useEffect(() => {MealDB.fetchCategories()}, []);
     useEffect(() => {MealDB.fetchArea()}, []);
     //useEffect(MealDB.fetchIngredients);
-    const [ingredients, setIngredients] = useState(location.state?.ingredients); //list of the ingredients needed for the query
+    const [ingredients, setIngredients] = useState(location.state?.ingredients ? location.state?.ingredients : [] ); //list of the ingredients needed for the query
     const [options, setOptions] = useState(MealDB.getOption()); //change "option" to [] when the query will be done
     const [results, setResults] = useState([]) //change "result" to [] when the query will be done
     const [total, setTotal] = useState(0);
