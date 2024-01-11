@@ -5,6 +5,7 @@ import { React, useState, useEffect } from "react";
 import "../stylesheet/Ontology.css"
 import * as MealDB from "../api/TheMealDB"
 import { useLocation } from 'react-router-dom';
+import { FaSpinner } from 'react-icons/fa';
 
 
 function Ontology() {
@@ -16,6 +17,8 @@ function Ontology() {
     const [options, setOptions] = useState(MealDB.getOption()); //change "option" to [] when the query will be done
     const [results, setResults] = useState([]) //change "result" to [] when the query will be done
     const [total, setTotal] = useState(0);
+    const [isLoading, setIsLoading] = useState(false);
+
 
     const handleOptionChange = (label, selectedOptions) => {
       setOptions((prevOptions) =>
@@ -28,7 +31,7 @@ function Ontology() {
     const searchButton = async () => {
       if (ingredients.length + options[0].optionsChoose.length + options[1].optionsChoose.length === 0)
         return;
-      console.log("searching...");
+      setIsLoading(true);
       setTotal(3);
       //setTotal(ingredients.length + options.reduce((total, option) => total + option.optionsChoose.length, 0));
       let promises = ingredients.map(ingredient => MealDB.fetchMealsByIngredient(ingredient));
@@ -43,7 +46,7 @@ function Ontology() {
       const resultMore = await Promise.all(result);
       result = await MealDB.exclusiveInclusion(resultMore, ingredients, options[0].optionsChoose, options[1].optionsChoose)
       setResults(result);
-      console.log("end...");
+      setIsLoading(false);
     }
 
     useEffect(() => {searchButton()}, [ingredients, options]);
@@ -55,6 +58,7 @@ function Ontology() {
             <SelectOption label={option.label} optionsList={option.optionsList} optionsChoose={option.optionsChoose} onOptionChange={handleOptionChange} optionsData={options}></SelectOption>
           ))}
           <SearchBar ingredients={ingredients} setIngredients={setIngredients}></SearchBar>
+          {isLoading ? <div className="loading-icon"><FaSpinner /></div> : null}
           {
             total >= 3 ? 
             <div className="mealList">
