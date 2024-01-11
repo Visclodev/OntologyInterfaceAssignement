@@ -29,7 +29,8 @@ function Ontology() {
     };
 
     const searchButton = async () => {
-      if (ingredients.length + options[0].optionsChoose.length + options[1].optionsChoose.length === 0)
+      const nbParameters = ingredients.length + options[0].optionsChoose.length + options[1].optionsChoose.length;
+      if (nbParameters === 0)
         return;
       setIsLoading(true);
       setTotal(3);
@@ -39,12 +40,14 @@ function Ontology() {
       promises = promises.concat(options[1].optionsChoose.map(category => MealDB.fetchMealsByCategory(category.value)))
       const responses = await Promise.all(promises);
       let result = [].concat(...responses)
-      MealDB.cleanResults(result);
+      //MealDB.cleanResults(result);
+      if (nbParameters > 1)
+        result = MealDB.keepDuplicates(result);
 
       // Dark magic, don't touch this
-      result = await MealDB.fillMealDataSlow(result);
-      const resultMore = await Promise.all(result);
-      result = await MealDB.exclusiveInclusion(resultMore, ingredients, options[0].optionsChoose, options[1].optionsChoose)
+      //result = await MealDB.fillMealDataSlow(result);
+      //const resultMore = await Promise.all(result);
+      //result = await MealDB.exclusiveInclusion(resultMore, ingredients, options[0].optionsChoose, options[1].optionsChoose)
       setResults(result);
       setIsLoading(false);
     }

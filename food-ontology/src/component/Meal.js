@@ -6,6 +6,8 @@ import { Link, useLocation } from "react-router-dom";
 function Meal(props) {
     const location = useLocation();
 
+    if (props.meal == null)
+        return null;
     return (
         <div className="meal">
             {/* <small>{props.meal.idMeal}</small> */}

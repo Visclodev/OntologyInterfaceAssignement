@@ -169,7 +169,7 @@ async function fillMealData(meals) {
 async function fillMealDataSlow(meals) {
   let result = [];
 
-  for (let i = 0; meals[i] != undefined; i++) {
+  for (let i = 0; meals[i] !== undefined; i++) {
     let newMeal = await fetchMealById(meals[i].idMeal);
     result.push(newMeal);
   }
@@ -231,8 +231,23 @@ function verifyIngredients(meal, ingredients) {
   return ingredients.length === 0;
 }
 
+// Takes the list of meals and only keep duplicates
+function keepDuplicates(meals) {
+  let result = [];
+
+  for (let i = 0; i < meals.length; i++) {
+    for (let j = i + 1; j < meals.length; j++) {
+      if (meals[i].idMeal === meals[j].idMeal) {
+        result.push(meals[i]);
+      }
+    }
+  }
+  return result;
+}
+
 // This function exclude meals not containing every ingredient and at least
 // one area and one category from the selected ones
+// [This function doesn't work]
 function exclusiveInclusion(meals, ingredients, areas, categories) {
   for (let i = meals.length - 1; i >= 0; i--) {
     if (!verifyArea(meals[i], areas) && !verifyCategory(meals[i], categories)) {
@@ -266,5 +281,6 @@ module.exports = {
   fillMealDataSlow,
   fetchMealById,
   storeArray,
-  mapIngredients
+  mapIngredients,
+  keepDuplicates
 };
