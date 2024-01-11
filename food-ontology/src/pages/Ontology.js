@@ -18,6 +18,8 @@ function Ontology() {
     const [results, setResults] = useState([]) //change "result" to [] when the query will be done
     const [total, setTotal] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
+    const [totalMeals, setTotalMeals] = useState(0);
+
 
 
     const handleOptionChange = (label, selectedOptions) => {
@@ -49,6 +51,7 @@ function Ontology() {
       //const resultMore = await Promise.all(result);
       //result = await MealDB.exclusiveInclusion(resultMore, ingredients, options[0].optionsChoose, options[1].optionsChoose)
       setResults(result);
+      setTotalMeals(result.length);
       setIsLoading(false);
     }
 
@@ -65,9 +68,14 @@ function Ontology() {
           {
             total >= 3 ? 
             <div className="mealList">
-              {results?.map((meal) => (
-                  <Meal meal={meal}></Meal>
-              ))}
+              {
+                totalMeals > 0 ?
+                  results?.map((meal) => (
+                      <Meal meal={meal}></Meal>
+                  ))
+                :
+                <h className='error-message'>No recipes match the request</h>
+              }
             </div>
             :
             <h className='error-message'>Please add more filter element</h>
