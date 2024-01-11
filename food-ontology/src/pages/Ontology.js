@@ -43,6 +43,7 @@ function Ontology() {
       const resultMore = await Promise.all(result);
       result = await MealDB.exclusiveInclusion(resultMore, ingredients, options[0].optionsChoose, options[1].optionsChoose)
       setResults(result);
+      console.log("end...");
     }
 
     useEffect(() => {searchButton()}, [ingredients, options]);

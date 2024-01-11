@@ -12,22 +12,8 @@ let option = [{
   label: "meal categories",
   optionsList: [],
   optionsChoose: []
-},
-{
-  label: "food restriction",
-  optionsList: [
-    { value: 'Gluten-free', label: 'Gluten-free' },
-    { value: 'Lactose-free', label: 'Lactose-free' },
-    { value: 'Vegetarianism', label: 'Vegetarianism' },
-    { value: 'Veganism', label: 'Veganism' },
-    { value: 'Kosher', label: 'Kosher' },
-    { value: 'Keto', label: 'Keto' },
-    { value: 'Diabetes', label: 'Diabetes' },
-    { value: 'Dairy-free', label: 'Dairy-free' },
-    { value: 'Low carb', label: 'Low carb' }
-  ],
-  optionsChoose: [],
-}];
+}
+];
   
 function getOption() {
     return option
@@ -166,7 +152,7 @@ async function fetchMealById(idMeal) {
     const meals = await response.json();
     result = meals.meals[0];
     result["strEmbedYtb"] = linkToEmbed(result["strYoutube"]);
-    console.log(result["strEmbedYtb"]);
+    
   } catch (error) {
     console.log(error);
     result = [];
