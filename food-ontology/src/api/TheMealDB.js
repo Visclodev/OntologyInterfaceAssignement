@@ -22,7 +22,7 @@ function getOption() {
 function fetchCategories() {
   if (option[1].optionsList.length !== 0)
     return;
-    fetch("https://www.themealdb.com/api/json/v1/1/list.php?c=list")
+  fetch("https://www.themealdb.com/api/json/v1/1/list.php?c=list")
     .then(response => {
         return response.json()
       })

@@ -26,7 +26,7 @@ function TopBar() {
               justifyContent: "space-around",
             }} >
                 <li className="underLine2 hide_on_responsive">
-                    <Link to="/">ONTOLOGY</Link>
+                    <Link to="/">SEARCH</Link>
                 </li>
                 <li className="underLine2 hide_on_responsive">
                     <Link to="/aboutUs">ABOUT US</Link>
