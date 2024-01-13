@@ -247,11 +247,9 @@ function keepDuplicates(meals) {
 
 // This function exclude meals not containing every ingredient and at least
 // one area and one category from the selected ones
-// [This function doesn't work]
 function exclusiveInclusion(meals, ingredients, areas, categories) {
   for (let i = meals.length - 1; i >= 0; i--) {
     if (!verifyArea(meals[i], areas) && !verifyCategory(meals[i], categories)) {
-      console.log("removing meal");
       meals.splice(i, 1);
       continue;
     }

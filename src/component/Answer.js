@@ -9,15 +9,11 @@ function askOntology() {
     let encodedQuery = encodeURIComponent(query);
     let sparqlUrl = `${sparqlEndpoint}?query=${encodedQuery}&format=json`
 
-    console.log("Fetch query");
     fetch(sparqlUrl)
         .then(response => response.json())
         .then(data => {
-            console.log("Got results! Processing started...")
             // Process the results here
             processResults(data);
-            // console.log(data);
-            console.log("Processing finished!");
         })
         .catch(error => {
             console.error('Error fetching data:', error);

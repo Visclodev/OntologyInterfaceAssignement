@@ -23,6 +23,7 @@ function Ontology() {
 
 
     const handleOptionChange = (label, selectedOptions) => {
+
       setOptions((prevOptions) =>
         prevOptions.map((option) =>
           option.label === label ? { ...option, optionsChoose: selectedOptions } : option
