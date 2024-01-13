@@ -234,10 +234,13 @@ function verifyIngredients(meal, ingredients) {
 // Takes the list of meals and only keep duplicates
 function keepDuplicates(meals) {
   let result = [];
-
+  
+  if (meals.length === 1 || meals.length === 0) {
+    return [];
+  }
   for (let i = 0; i < meals.length; i++) {
     for (let j = i + 1; j < meals.length; j++) {
-      if (meals[i].idMeal === meals[j].idMeal) {
+      if (meals[i]?.idMeal === meals[j]?.idMeal) {
         result.push(meals[i]);
       }
     }
