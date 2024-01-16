@@ -7,6 +7,9 @@ This will be a web interface to sort meals based on available ingredients.
 
 Make sure you have NPM (Node Package Manager) and NodeJS installed on your computer.
 
+Then run these commands and if no dependency breaks, it should work.
+> Don't hesitate to make an issue if a problem arises
+
 ```
 $ npm install
 $ npm start
