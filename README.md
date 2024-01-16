@@ -7,7 +7,10 @@ This will be a web interface to sort meals based on available ingredients.
 
 Make sure you have NPM (Node Package Manager) and NodeJS installed on your computer.
 
-### `npm start`
+```
+$ npm install
+$ npm start
+```
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
